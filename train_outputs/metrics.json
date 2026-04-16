@@ -1,0 +1,41 @@
+{
+  "train": {
+    "name": "train",
+    "accuracy": 0.9906260941528472,
+    "roc_auc": 0.9994793835984378,
+    "report": "              precision    recall  f1-score   support\n\n       human      0.996     0.990     0.993     42279\n     chatgpt      0.980     0.991     0.986     20555\n\n    accuracy                          0.991     62834\n   macro avg      0.988     0.991     0.989     62834\nweighted avg      0.991     0.991     0.991     62834\n"
+  },
+  "val": {
+    "name": "val",
+    "accuracy": 0.979512893982808,
+    "roc_auc": 0.9976904909639873,
+    "report": "              precision    recall  f1-score   support\n\n       human      0.985     0.985     0.985      4714\n     chatgpt      0.969     0.968     0.968      2266\n\n    accuracy                          0.980      6980\n   macro avg      0.977     0.977     0.977      6980\nweighted avg      0.980     0.980     0.980      6980\n"
+  },
+  "test": {
+    "name": "test",
+    "accuracy": 0.9808432255423659,
+    "roc_auc": 0.9983140138639781,
+    "report": "              precision    recall  f1-score   support\n\n       human      0.987     0.984     0.986      8244\n     chatgpt      0.967     0.974     0.971      3971\n\n    accuracy                          0.981     12215\n   macro avg      0.977     0.979     0.978     12215\nweighted avg      0.981     0.981     0.981     12215\n"
+  },
+  "n_examples": 82029,
+  "n_train_rows": 62834,
+  "n_val_rows": 6980,
+  "n_test_rows": 12215,
+  "subset": "all",
+  "sources_filter": null,
+  "prepend_question": false,
+  "test_confusion_matrix": [
+    [
+      8114,
+      130
+    ],
+    [
+      104,
+      3867
+    ]
+  ],
+  "test_confusion_labels": [
+    "human (0)",
+    "chatgpt (1)"
+  ]
+}
