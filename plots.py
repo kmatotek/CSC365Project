@@ -9,6 +9,9 @@ import plotly.graph_objects as go
 from sklearn.metrics import auc, roc_curve
 
 
+# -----------------------------
+# LOAD
+# -----------------------------
 def load_bundle(model_dir: Path):
     with open(model_dir / "metrics.json", encoding="utf-8") as f:
         metrics = json.load(f)
@@ -25,7 +28,7 @@ def load_bundle(model_dir: Path):
 
 
 # -----------------------------
-# FIXED SCORE DISTRIBUTION
+# SCORE DISTRIBUTION (FIXED LABELING)
 # -----------------------------
 def fig_score_distribution(y_true, y_score):
     mask_h = y_true == 0
@@ -40,48 +43,41 @@ def fig_score_distribution(y_true, y_score):
 
     fig.add_trace(go.Histogram(
         x=y_score[mask_h],
-        name="Human",
-        histnorm="probability density",
+        name="Human text",
+        histnorm="probability",  # normalized
         opacity=0.6,
         nbinsx=40,
     ))
 
     fig.add_trace(go.Histogram(
         x=y_score[mask_g],
-        name="ChatGPT",
-        histnorm="probability density",
+        name="ChatGPT text",
+        histnorm="probability",
         opacity=0.6,
         nbinsx=40,
     ))
 
-    # Decision boundary (no text here anymore)
     fig.add_vline(x=threshold, line_dash="dash")
 
     fig.update_layout(
         title="Model Confidence Distribution",
         xaxis_title="Predicted Probability of ChatGPT",
-        yaxis_title="Density",
+        yaxis_title="Proportion of texts (per bin)",  # clarified
         barmode="overlay",
         font=dict(size=18),
-        legend=dict(
-            orientation="h",
-            y=1.2,
-            x=0
-        ),
-        margin=dict(l=70, r=50, t=120, b=70),
+        legend=dict(orientation="h", y=1.15, x=0),
+        margin=dict(l=70, r=50, t=130, b=70),
         height=520,
-        width=760,
+        width=780,
     )
 
-    # Clean annotations (no overlap)
     fig.add_annotation(
         x=0.5,
         y=1.08,
         xref="x",
         yref="paper",
-        text="Decision boundary (0.5)",
+        text="Decision boundary at 0.5",
         showarrow=False,
-        font=dict(size=14)
     )
 
     fig.add_annotation(
@@ -89,7 +85,7 @@ def fig_score_distribution(y_true, y_score):
         y=0.95,
         xref="paper",
         yref="paper",
-        text=f"{pct_g_correct:.1f}% of ChatGPT texts correctly classified",
+        text=f"{pct_g_correct:.1f}% ChatGPT correctly classified",
         showarrow=False,
         align="right"
     )
@@ -99,7 +95,7 @@ def fig_score_distribution(y_true, y_score):
         y=0.88,
         xref="paper",
         yref="paper",
-        text=f"{pct_h_misclassified:.1f}% of human texts misclassified",
+        text=f"{pct_h_misclassified:.1f}% human misclassified",
         showarrow=False,
         align="right"
     )
@@ -107,59 +103,68 @@ def fig_score_distribution(y_true, y_score):
     return fig
 
 
-# -----------------------------
-# FIXED SOURCE ACCURACY
-# -----------------------------
+import plotly.express as px
+import pandas as pd
+
 def fig_accuracy_by_source(y_true, y_pred, source):
-    # Convert to clean Python strings (fixes hidden issues)
     source = np.array([str(s).strip() for s in source])
 
-    unique_sources = sorted(set(source))
-
-    data = []
-    for s in unique_sources:
+    rows = []
+    for s in sorted(set(source)):
         mask = source == s
-
         if mask.sum() == 0:
             continue
-
         acc = (y_true[mask] == y_pred[mask]).mean()
         n = mask.sum()
+        rows.append({"source": s, "accuracy": acc, "n": n})
 
-        data.append((s, acc, n))
+    df = pd.DataFrame(rows).sort_values("accuracy", ascending=False)
 
-    # Sort by accuracy
-    data.sort(key=lambda x: x[1], reverse=True)
+    # Create label text
+    df["label"] = df.apply(lambda r: f"{r['accuracy']:.1%}<br>n={int(r['n'])}", axis=1)
 
-    names, accs, supports = zip(*data)
+    fig = px.bar(
+        df,
+        x="source",
+        y="accuracy",
+        text="label",
+    )
 
-    fig = go.Figure()
-
-    fig.add_trace(go.Bar(
-        x=list(names),
-        y=list(accs),
-        text=[f"{a:.1%}<br>n={n}" for a, n in zip(accs, supports)],
-        textposition="outside",
-    ))
+    fig.update_traces(
+        textposition="inside",     # cleaner than inside for high values
+        cliponaxis=False,        # 🔥 THIS FIXES CUT-OFF
+        textfont=dict(size=14, color="white"),# ✅ slightly smaller + readable
+    )
 
     fig.update_layout(
-        title="Model Accuracy by Source",
+        title={
+        'text': "Model Accuracy by Source",
+        'x': 0.5,
+        'xanchor': 'center'
+        },
+        
         xaxis_title="HC3 Source",
         yaxis_title="Accuracy",
-        yaxis=dict(range=[0, 1.05]),
+
+        # keep correct bounds
+        yaxis=dict(range=[0.8, 1.0]),
+
         font=dict(size=18),
-        margin=dict(l=70, r=50, t=80, b=160),
+        margin=dict(l=70, r=50, t=100, b=170),
         height=520,
         width=850,
     )
 
     fig.update_xaxes(tickangle=-30)
 
+    # 🔥 THIS ensures labels don’t shrink randomly
+    fig.update_layout(uniformtext_minsize=12, uniformtext_mode='show')
+
     return fig
 
 
 # -----------------------------
-# CLEAN ROC CURVE
+# ROC
 # -----------------------------
 def fig_roc(y_true, y_score):
     fpr, tpr, _ = roc_curve(y_true, y_score)
@@ -180,7 +185,7 @@ def fig_roc(y_true, y_score):
         y=[0, 1],
         mode="lines",
         line=dict(dash="dash"),
-        name="Random"
+        name="Random baseline"
     ))
 
     fig.update_layout(
