@@ -26,7 +26,7 @@ def load_bundle(model_dir: Path):
         z["source"].astype(str),
     )
 
-def fig_feature_importance(model_dir, top_n=12):
+def fig_feature_importance(model_dir, top_n=6):
     import pickle
     import numpy as np
     import pandas as pd
@@ -42,9 +42,8 @@ def fig_feature_importance(model_dir, top_n=12):
     feature_names = np.array(vec.get_feature_names_out())
     coefs = clf.coef_[0]
 
-    # Top positive (ChatGPT)
+    # Top positive (ChatGPT-like)
     top_pos_idx = np.argsort(coefs)[-top_n:]
-    # Top negative (Human)
     top_neg_idx = np.argsort(coefs)[:top_n]
 
     top_pos = pd.DataFrame({
@@ -59,10 +58,11 @@ def fig_feature_importance(model_dir, top_n=12):
         "label": "Human-like"
     })
 
-    df = pd.concat([top_pos, top_neg])
-
-    # Sort for clean plotting
-    df = df.sort_values("coef")
+    # Keep clean separation (no interleaving confusion)
+    df = pd.concat([
+        top_neg.sort_values("coef"),
+        top_pos.sort_values("coef")
+    ])
 
     fig = go.Figure()
 
@@ -74,23 +74,34 @@ def fig_feature_importance(model_dir, top_n=12):
         textposition="outside",
     ))
 
+    fig.add_vline(x=0, line_dash="dash")
+
     fig.update_layout(
-        title="Top Linguistic Features Learned by Model",
-        xaxis_title="Model Weight (importance)",
-        yaxis_title="Word / n-gram",
+        title=dict(
+            text="Top Linguistic Features Learned by Model",
+            x=0.5,
+            xanchor="center"
+        ),
+        xaxis=dict(
+            title="Model Weight (importance)",
+            range=[-12, 12],
+            zeroline=True,
+            zerolinewidth=1,
+            zerolinecolor="black",
+        ),
+        yaxis=dict(
+            title="Word / n-gram"
+        ),
         font=dict(size=16),
         height=600,
         width=900,
-        margin=dict(l=120, r=40, t=80, b=60),
+        margin=dict(l=140, r=40, t=120, b=60),
     )
 
-    # Add vertical line at 0
-    fig.add_vline(x=0, line_dash="dash")
-
-    # Add annotations for sides
+    # Side annotations (moved up for clarity)
     fig.add_annotation(
-        x=0.95,
-        y=1.05,
+        x=0.98,
+        y=1.12,
         xref="paper",
         yref="paper",
         text="More ChatGPT-like →",
@@ -99,8 +110,8 @@ def fig_feature_importance(model_dir, top_n=12):
     )
 
     fig.add_annotation(
-        x=0.05,
-        y=1.05,
+        x=0.02,
+        y=1.12,
         xref="paper",
         yref="paper",
         text="← More Human-like",
@@ -143,13 +154,23 @@ def fig_score_distribution(y_true, y_score):
     fig.add_vline(x=threshold, line_dash="dash")
 
     fig.update_layout(
-        title="Model Confidence Distribution",
+        title=dict(
+            text="Model Confidence Distribution",
+            x=0.5,
+            xanchor="center"
+        ),
         xaxis_title="Predicted Probability of ChatGPT",
-        yaxis_title="Proportion of texts (per bin)",  # clarified
+        yaxis_title="Proportion of texts (per bin)",
         barmode="overlay",
         font=dict(size=18),
-        legend=dict(orientation="h", y=1.15, x=0),
-        margin=dict(l=70, r=50, t=130, b=70),
+        legend=dict(
+            orientation="h",
+            y=1.08,
+            x=0.5,
+            xanchor="center",
+            yanchor="bottom"
+        ),
+        margin=dict(l=70, r=50, t=140, b=70),
         height=520,
         width=780,
     )
@@ -163,6 +184,7 @@ def fig_score_distribution(y_true, y_score):
         showarrow=False,
     )
 
+    """
     fig.add_annotation(
         x=0.98,
         y=0.95,
@@ -182,7 +204,7 @@ def fig_score_distribution(y_true, y_score):
         showarrow=False,
         align="right"
     )
-
+    """
     return fig
 
 
