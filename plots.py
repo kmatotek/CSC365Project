@@ -26,6 +26,89 @@ def load_bundle(model_dir: Path):
         z["source"].astype(str),
     )
 
+def fig_feature_importance(model_dir, top_n=12):
+    import pickle
+    import numpy as np
+    import pandas as pd
+    import plotly.graph_objects as go
+
+    # Load model + vectorizer
+    with open(model_dir / "tfidf_vectorizer.pkl", "rb") as f:
+        vec = pickle.load(f)
+
+    with open(model_dir / "logreg.pkl", "rb") as f:
+        clf = pickle.load(f)
+
+    feature_names = np.array(vec.get_feature_names_out())
+    coefs = clf.coef_[0]
+
+    # Top positive (ChatGPT)
+    top_pos_idx = np.argsort(coefs)[-top_n:]
+    # Top negative (Human)
+    top_neg_idx = np.argsort(coefs)[:top_n]
+
+    top_pos = pd.DataFrame({
+        "feature": feature_names[top_pos_idx],
+        "coef": coefs[top_pos_idx],
+        "label": "ChatGPT-like"
+    })
+
+    top_neg = pd.DataFrame({
+        "feature": feature_names[top_neg_idx],
+        "coef": coefs[top_neg_idx],
+        "label": "Human-like"
+    })
+
+    df = pd.concat([top_pos, top_neg])
+
+    # Sort for clean plotting
+    df = df.sort_values("coef")
+
+    fig = go.Figure()
+
+    fig.add_trace(go.Bar(
+        x=df["coef"],
+        y=df["feature"],
+        orientation="h",
+        text=[f"{c:.2f}" for c in df["coef"]],
+        textposition="outside",
+    ))
+
+    fig.update_layout(
+        title="Top Linguistic Features Learned by Model",
+        xaxis_title="Model Weight (importance)",
+        yaxis_title="Word / n-gram",
+        font=dict(size=16),
+        height=600,
+        width=900,
+        margin=dict(l=120, r=40, t=80, b=60),
+    )
+
+    # Add vertical line at 0
+    fig.add_vline(x=0, line_dash="dash")
+
+    # Add annotations for sides
+    fig.add_annotation(
+        x=0.95,
+        y=1.05,
+        xref="paper",
+        yref="paper",
+        text="More ChatGPT-like →",
+        showarrow=False,
+        align="right"
+    )
+
+    fig.add_annotation(
+        x=0.05,
+        y=1.05,
+        xref="paper",
+        yref="paper",
+        text="← More Human-like",
+        showarrow=False,
+        align="left"
+    )
+
+    return fig
 
 # -----------------------------
 # SCORE DISTRIBUTION (FIXED LABELING)
@@ -219,6 +302,7 @@ def main():
         "score_distribution": fig_score_distribution(y_true, y_score),
         "accuracy_by_source": fig_accuracy_by_source(y_true, y_pred, source),
         "roc_curve": fig_roc(y_true, y_score),
+        "feature_importance": fig_feature_importance(model_dir),
     }
 
     for name, fig in figs.items():
