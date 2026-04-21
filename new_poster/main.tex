@@ -1,0 +1,199 @@
+\documentclass[final]{beamer}
+
+% ====================
+% Packages
+% ====================
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[size=custom,width=100,height=75,scale=1.0]{beamerposter}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[table]{xcolor}
+
+% ====================
+% Colors
+% ====================
+\definecolor{primaryblue}{HTML}{093f81}
+\definecolor{lightblue}{HTML}{d1e2f3}
+
+\setbeamercolor{palette primary}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=primaryblue}
+
+\setbeamercolor{headline}{fg=white,bg=primaryblue}
+\setbeamercolor{headline rule}{bg=primaryblue!70!black}
+
+\setbeamercolor{block title}{fg=primaryblue,bg=white}
+\setbeamercolor{block body}{fg=black,bg=white}
+
+\setbeamercolor{block alerted title}{fg=primaryblue,bg=lightblue}
+\setbeamercolor{block alerted body}{fg=black,bg=lightblue!80}
+
+% ====================
+% Theme
+% ====================
+\usetheme{gemini}
+
+% ====================
+% Layout
+% ====================
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.025\paperwidth}
+\setlength{\colwidth}{0.3\paperwidth}
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+
+% ====================
+% Title
+% ====================
+\title{Detecting AI-Generated Text Using Lightweight Linguistic Models}
+
+\author{Tyler Geiger and Kadin Matotek \\[0.3em] \normalsize Advisor: blah blah}
+
+\institute{West Chester University, Department of Computer Science}
+
+\footercontent{
+  WCU-AIR Lab \hfill
+  Student Research Poster \hfill
+  \href{mailto:km998744@wcupa.edu}{km998744@wcupa.edu}
+}
+
+\logoleft{\includegraphics[height=7cm]{../poster/figures/wculogo.png}}
+
+% ====================
+% Document
+% ====================
+\begin{document}
+
+\begin{frame}[t]
+\begin{columns}[t]
+\separatorcolumn
+
+% ==================== COLUMN 1 ====================
+\begin{column}{\colwidth}
+
+\begin{block}{Introduction}
+The rapid rise of large language models (LLMs) such as ChatGPT has made it increasingly difficult to distinguish between human-written and AI-generated text.
+
+This project explores whether \textbf{simple, interpretable models} using linguistic features can reliably detect AI-generated content.
+
+\textbf{Research Questions:}
+\begin{itemize}
+\item Can lightweight models distinguish AI vs human text?
+\item What linguistic patterns differentiate the two?
+\item How well does performance generalize across sources?
+\end{itemize}
+\end{block}
+
+\vspace{-0.5cm}
+
+\begin{block}{Methodology}
+
+\textbf{Dataset:}
+\begin{itemize}
+\item HC3 dataset (Human vs ChatGPT responses)
+\item Multiple domains: Reddit, StackExchange, etc.
+\end{itemize}
+
+\textbf{Model:}
+\begin{itemize}
+\item TF-IDF vectorization
+\item Logistic Regression classifier
+\item Interpretable linear weights
+\end{itemize}
+
+\textbf{Evaluation:}
+\begin{itemize}
+\item Accuracy
+\item ROC-AUC
+\item Source-wise generalization
+\end{itemize}
+
+\end{block}
+
+\begin{block}{Model Confidence Distribution}
+\begin{figure}
+\centering
+\includegraphics[width=1.05\linewidth]{../train_outputs/figures/score_distribution.pdf}
+\caption{Distribution of predicted probabilities for human vs ChatGPT text. Clear separation indicates strong model confidence.}
+\end{figure}
+\end{block}
+
+\end{column}
+
+\separatorcolumn
+
+% ==================== COLUMN 2 ====================
+\begin{column}{\colwidth}
+
+\begin{alertblock}{Key Insight}
+Even a simple linear model can achieve \textbf{strong separation between human and AI-generated text}, suggesting that LLM outputs exhibit consistent and detectable linguistic patterns.
+\end{alertblock}
+
+\begin{block}{Accuracy by Source}
+\begin{figure}
+\centering
+\includegraphics[width=1.05\linewidth]{../train_outputs/figures/accuracy_by_source.pdf}
+\caption{Model accuracy across different data sources. Performance remains consistently high, indicating strong generalization.}
+\end{figure}
+\end{block}
+
+\begin{block}{ROC Curve}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{../train_outputs/figures/roc_curve.pdf}
+\caption{Receiver Operating Characteristic curve showing high discriminative ability (AUC).}
+\end{figure}
+\end{block}
+
+\end{column}
+
+\separatorcolumn
+
+% ==================== COLUMN 3 ====================
+\begin{column}{\colwidth}
+
+\begin{block}{Feature Importance}
+\begin{figure}
+\centering
+\includegraphics[width=1.05\linewidth]{../train_outputs/figures/feature_importance.pdf}
+\caption{Top linguistic features learned by the model. Positive weights indicate ChatGPT-like patterns; negative weights indicate human-like patterns.}
+\end{figure}
+\end{block}
+
+\begin{block}{Findings}
+
+\textbf{Key Observations:}
+\begin{itemize}
+\item AI-generated text is highly consistent in style
+\item Certain phrases and structures strongly signal LLM output
+\item Human text exhibits greater variability
+\end{itemize}
+
+\textbf{Implications:}
+\begin{itemize}
+\item Lightweight models remain competitive for detection
+\item Interpretability is a major advantage over deep models
+\item Detection may become harder as LLMs improve
+\end{itemize}
+
+\end{block}
+
+\begin{block}{Future Work}
+\begin{itemize}
+\item Evaluate robustness on newer LLMs (GPT-4+, Claude, etc.)
+\item Explore adversarial paraphrasing attacks
+\item Incorporate syntactic and semantic features
+\item Compare against deep neural classifiers
+\end{itemize}
+\end{block}
+
+\end{column}
+
+\separatorcolumn
+\end{columns}
+\end{frame}
+
+\end{document}

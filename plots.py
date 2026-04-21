@@ -314,7 +314,7 @@ def main():
             for name, fig in figs.items():
                 #fig.write_image(out / f"{name}.png", scale=3)
                 fig.write_image(out / f"{name}.svg")
-                #fig.write_image(out / f"{name}.pdf")
+                fig.write_image(out / f"{name}.pdf")
         except Exception as e:
             print("Export failed (install kaleido):", e)
 
