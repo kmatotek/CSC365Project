@@ -37,6 +37,17 @@
 \usetheme{gemini}
 
 % ====================
+% FONT SCALING
+% ====================
+\setbeamerfont{block title}{size=\Large,series=\bfseries}
+\setbeamerfont{block body}{size=\large}
+\setbeamerfont{headline}{size=\Large}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{institute}{size=\normalsize}
+
+
+% ====================
 % Layout
 % ====================
 \newlength{\sepwidth}
@@ -50,17 +61,17 @@
 % ====================
 \title{Detecting AI-Generated Text Using Lightweight Linguistic Models}
 
-\author{Tyler Geiger and Kadin Matotek \\[0.3em] \normalsize Advisor: blah blah}
+\author{Tyler Geiger and Kadin Matotek \\[0.3em] \normalsize Instructor: Dr. Agah}
 
 \institute{West Chester University, Department of Computer Science}
 
 \footercontent{
-  WCU-AIR Lab \hfill
-  Student Research Poster \hfill
-  \href{mailto:km998744@wcupa.edu}{km998744@wcupa.edu}
+  CSC 365: Data Analytics - Spring 2026 \hfill
+  West Chester University \hfill
+  km998744@wcupa.edu, tg996676@wcupa.edu
 }
 
-\logoleft{\includegraphics[height=7cm]{../poster/figures/wculogo.png}}
+\logoleft{\hspace{1.5cm}\includegraphics[height=5cm]{../poster/figures/wculogo.png}}
 
 % ====================
 % Document
@@ -75,49 +86,25 @@
 \begin{column}{\colwidth}
 
 \begin{block}{Introduction}
-The rapid rise of large language models (LLMs) such as ChatGPT has made it increasingly difficult to distinguish between human-written and AI-generated text.
+Large language models (LLMs) such as ChatGPT have made it increasingly difficult to distinguish between human-written and AI-generated text.
 
-This project explores whether \textbf{simple, interpretable models} using linguistic features can reliably detect AI-generated content.
+This project evaluates whether \textbf{simple, interpretable models} can reliably detect AI-generated content.
 
 \textbf{Research Questions:}
 \begin{itemize}
 \item Can lightweight models distinguish AI vs human text?
-\item What linguistic patterns differentiate the two?
-\item How well does performance generalize across sources?
+\item What linguistic patterns differentiate them?
+\item How well does performance generalize?
 \end{itemize}
 \end{block}
 
-\vspace{-0.5cm}
+\vspace{-0.3cm}
 
-\begin{block}{Methodology}
-
-\textbf{Dataset:}
-\begin{itemize}
-\item HC3 dataset (Human vs ChatGPT responses)
-\item Multiple domains: Reddit, StackExchange, etc.
-\end{itemize}
-
-\textbf{Model:}
-\begin{itemize}
-\item TF-IDF vectorization
-\item Logistic Regression classifier
-\item Interpretable linear weights
-\end{itemize}
-
-\textbf{Evaluation:}
-\begin{itemize}
-\item Accuracy
-\item ROC-AUC
-\item Source-wise generalization
-\end{itemize}
-
-\end{block}
-
-\begin{block}{Model Confidence Distribution}
+\begin{block}{Accuracy by Source}
 \begin{figure}
 \centering
-\includegraphics[width=1.05\linewidth]{../train_outputs/figures/score_distribution.pdf}
-\caption{Distribution of predicted probabilities for human vs ChatGPT text. Clear separation indicates strong model confidence.}
+\includegraphics[width=\linewidth]{../train_outputs/figures/accuracy_by_source.pdf}
+\caption{\large High accuracy across domains shows strong generalization.}
 \end{figure}
 \end{block}
 
@@ -128,23 +115,39 @@ This project explores whether \textbf{simple, interpretable models} using lingui
 % ==================== COLUMN 2 ====================
 \begin{column}{\colwidth}
 
-\begin{alertblock}{Key Insight}
-Even a simple linear model can achieve \textbf{strong separation between human and AI-generated text}, suggesting that LLM outputs exhibit consistent and detectable linguistic patterns.
-\end{alertblock}
+\begin{block}{Methodology}
 
-\begin{block}{Accuracy by Source}
-\begin{figure}
-\centering
-\includegraphics[width=1.05\linewidth]{../train_outputs/figures/accuracy_by_source.pdf}
-\caption{Model accuracy across different data sources. Performance remains consistently high, indicating strong generalization.}
-\end{figure}
+\textbf{Dataset:}
+\vspace{-0.4em}
+\begin{itemize}
+\item HC3 (Human vs ChatGPT)
+\item Multiple domains (Reddit, StackExchange)
+\end{itemize}
+
+\textbf{Model:}
+\vspace{-0.4em}
+\begin{itemize}
+\item TF-IDF features
+\item Logistic Regression
+\item Interpretable coefficients
+\end{itemize}
+
+\textbf{Evaluation:}
+\vspace{-0.4em}
+\begin{itemize}
+\item Accuracy
+\item Source generalization
+\end{itemize}
+
 \end{block}
 
-\begin{block}{ROC Curve}
+\vspace{-0.3cm}
+
+\begin{block}{Model Confidence Distribution}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\linewidth]{../train_outputs/figures/roc_curve.pdf}
-\caption{Receiver Operating Characteristic curve showing high discriminative ability (AUC).}
+\includegraphics[width=\linewidth]{../train_outputs/figures/score_distribution.pdf}
+\caption{\large Strong separation between human and AI predictions.}
 \end{figure}
 \end{block}
 
@@ -158,36 +161,29 @@ Even a simple linear model can achieve \textbf{strong separation between human a
 \begin{block}{Feature Importance}
 \begin{figure}
 \centering
-\includegraphics[width=1.05\linewidth]{../train_outputs/figures/feature_importance.pdf}
-\caption{Top linguistic features learned by the model. Positive weights indicate ChatGPT-like patterns; negative weights indicate human-like patterns.}
+\includegraphics[width=\linewidth]{../train_outputs/figures/feature_importance.pdf}
+\caption{\large Linguistic features distinguishing AI vs human writing.}
 \end{figure}
 \end{block}
 
+\vspace{-0.3cm}
+
 \begin{block}{Findings}
 
-\textbf{Key Observations:}
+\textbf{Observations:}
 \begin{itemize}
-\item AI-generated text is highly consistent in style
-\item Certain phrases and structures strongly signal LLM output
-\item Human text exhibits greater variability
+\item AI text is more stylistically consistent
+\item Specific phrases strongly indicate LLM output
+\item Human text is more varied
 \end{itemize}
 
 \textbf{Implications:}
 \begin{itemize}
-\item Lightweight models remain competitive for detection
-\item Interpretability is a major advantage over deep models
-\item Detection may become harder as LLMs improve
+\item Lightweight models are highly effective
+\item Interpretability provides clear insight
+\item Detection may become harder as models improve
 \end{itemize}
 
-\end{block}
-
-\begin{block}{Future Work}
-\begin{itemize}
-\item Evaluate robustness on newer LLMs (GPT-4+, Claude, etc.)
-\item Explore adversarial paraphrasing attacks
-\item Incorporate syntactic and semantic features
-\item Compare against deep neural classifiers
-\end{itemize}
 \end{block}
 
 \end{column}

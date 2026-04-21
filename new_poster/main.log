@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.8)  21 APR 2026 10:36
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.8)  21 APR 2026 10:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -909,33 +909,33 @@ Package fontspec Info:
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 53.
+(hyperref)                removing `\\' on input line 64.
 
 File: ../poster/figures/wculogo.png Graphic file (type bmp)
 <../poster/figures/wculogo.png>
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 68.
-LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -971,7 +971,7 @@ LaTeX Font Info:    ... okay on input line 68.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 68.
+Package hyperref Info: Link coloring OFF on input line 79.
 (./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
@@ -992,51 +992,38 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package pgfplots notification 'compat/show suggested version=true': you might benefit from \pgfplotsset{compat=1.18} (current compat level: 1.17).
 
 (./main.nav)
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 68.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 79.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 68.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 79.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 68.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 79.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 File: ../poster/figures/wculogo.png Graphic file (type bmp)
 <../poster/figures/wculogo.png>
-LaTeX Font Info:    External font `cmex7' loaded for size
-(Font)              <6> on input line 68.
+LaTeX Font Info:    Calculating math sizes for size <35.83> on input line 79.
+
+
+LaTeX Font Warning: Font shape `OMX/cmex/m/n' in size <35.83> not available
+(Font)              size <24.88> substituted on input line 79.
+
+
+LaTeX Font Warning: Font shape `OMX/cmex/m/n' in size <17.915> not available
+(Font)              size <17.28> substituted on input line 79.
+
 File: ../poster/figures/wculogo.png Graphic file (type bmp)
 <../poster/figures/wculogo.png>
-File: ../train_outputs/figures/score_distribution.pdf Graphic file (type pdf)
-<use ../train_outputs/figures/score_distribution.pdf>
-
-Overfull \hbox (42.68216pt too wide) in paragraph at lines 197--197
- [] 
- []
-
 File: ../train_outputs/figures/accuracy_by_source.pdf Graphic file (type pdf)
 <use ../train_outputs/figures/accuracy_by_source.pdf>
-
-Overfull \hbox (42.68216pt too wide) in paragraph at lines 197--197
- [] 
- []
-
-File: ../train_outputs/figures/roc_curve.pdf Graphic file (type pdf)
-<use ../train_outputs/figures/roc_curve.pdf>
+File: ../train_outputs/figures/score_distribution.pdf Graphic file (type pdf)
+<use ../train_outputs/figures/score_distribution.pdf>
 File: ../train_outputs/figures/feature_importance.pdf Graphic file (type pdf)
 <use ../train_outputs/figures/feature_importance.pdf>
-
-Overfull \hbox (42.68216pt too wide) in paragraph at lines 197--197
- [] 
- []
-
-
-Overfull \vbox (186.68217pt too high) detected at line 197
- []
-
 
 
 File: ../poster/figures/wculogo.png Graphic file (type bmp)
@@ -1058,16 +1045,21 @@ File: ../poster/figures/wculogo.png Graphic file (type bmp)
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
+
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 10.95pt have occurred.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 38458 strings out of 473832
- 942442 string characters out of 5729482
- 1490894 words of memory out of 5000000
- 60739 multiletter control sequences out of 15000+600000
- 587783 words of font info for 115 fonts, out of 8000000 for 9000
+ 38421 strings out of 473832
+ 941555 string characters out of 5729482
+ 1471074 words of memory out of 5000000
+ 60715 multiletter control sequences out of 15000+600000
+ 587167 words of font info for 113 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 128i,17n,123p,767b,973s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,17n,123p,767b,996s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on main.pdf (1 page).
