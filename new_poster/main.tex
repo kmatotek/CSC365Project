@@ -54,7 +54,6 @@
 \setbeamerfont{headline author}{size=\Large}
 \setbeamerfont{headline institute}{size=\large}
 
-
 % ====================
 % Layout
 % ====================
@@ -81,8 +80,8 @@
 
 \logoleft{\includegraphics[height=6cm]{../poster/figures/wculogo.png}}
 
-
 \setlength{\maxlogowidth}{24cm}
+
 % ====================
 % Document
 % ====================
@@ -96,15 +95,16 @@
 \begin{column}{\colwidth}
 
 \begin{block}{Introduction}
-Large language models (LLMs) such as ChatGPT have made it increasingly difficult to distinguish between human-written and AI-generated text.
+As LLMs like ChatGPT grow more capable, distinguishing AI-generated text from human writing becomes increasingly difficult --- yet increasingly important for academic integrity, journalism, and trust online.
 
-This project evaluates whether \textbf{simple, interpretable models} can reliably detect AI-generated content.
+We ask: \textbf{can a simple, interpretable model do the job?} Rather than using a heavyweight neural detector, we train a logistic regression on TF-IDF features --- a model whose decisions can be fully audited and explained.
 
+\vspace{0.3em}
 \textbf{Research Questions:}
 \begin{itemize}
-\item Can lightweight models distinguish AI vs human text?
-\item What linguistic patterns differentiate them?
-\item How well does performance generalize?
+  \item Can lightweight models reliably detect AI-generated text?
+  \item Which linguistic patterns most distinguish ChatGPT from humans?
+  \item Does detection hold across different topic domains?
 \end{itemize}
 \end{block}
 
@@ -114,7 +114,7 @@ This project evaluates whether \textbf{simple, interpretable models} can reliabl
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{../train_outputs/figures/accuracy_by_source.pdf}
-\caption{\large High accuracy across domains shows strong generalization.}
+\caption{\large All six HC3 domains exceed 93\% accuracy. Consistent performance across Reddit, StackExchange, medicine, and finance confirms the model learned \textbf{authorship style} --- not domain-specific vocabulary.}
 \end{figure}
 \end{block}
 
@@ -127,26 +127,19 @@ This project evaluates whether \textbf{simple, interpretable models} can reliabl
 
 \begin{block}{Methodology}
 
-\textbf{Dataset:}
-\vspace{-0.4em}
+\textbf{Dataset --- HC3:}
 \begin{itemize}
-\item HC3 (Human vs ChatGPT)
-\item Multiple domains (Reddit, StackExchange)
+  \item Human and ChatGPT answers to the same questions
+  \item Domains: Reddit, StackExchange, medicine, finance
+  \item Split \textbf{by question group} to prevent leakage
 \end{itemize}
 
-\textbf{Model:}
-\vspace{-0.4em}
+\vspace{0.3em}
+\textbf{Model Pipeline:}
 \begin{itemize}
-\item TF-IDF features
-\item Logistic Regression
-\item Interpretable coefficients
-\end{itemize}
-
-\textbf{Evaluation:}
-\vspace{-0.4em}
-\begin{itemize}
-\item Accuracy
-\item Source generalization
+  \item TF-IDF (50k features, unigrams + bigrams)
+  \item Logistic Regression with balanced class weights
+  \item Fully interpretable coefficients
 \end{itemize}
 
 \end{block}
@@ -157,7 +150,7 @@ This project evaluates whether \textbf{simple, interpretable models} can reliabl
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{../train_outputs/figures/score_distribution.pdf}
-\caption{\large Strong separation between human and AI predictions.}
+\caption{\large Human texts (blue) pile up near 0; ChatGPT texts (orange) pile up near 1. The sharp separation at the 0.5 boundary shows the model assigns \textbf{high-confidence predictions} to nearly every sample --- reflecting ChatGPT's stylistic uniformity versus human variability.}
 \end{figure}
 \end{block}
 
@@ -172,7 +165,7 @@ This project evaluates whether \textbf{simple, interpretable models} can reliabl
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{../train_outputs/figures/feature_importance.pdf}
-\caption{\large Linguistic features distinguishing AI vs human writing.}
+\caption{\large ChatGPT-indicative features (right) are formulaic phrases: \textit{``in conclusion,''} \textit{``it is important to,''} \textit{``as an AI.''} Human-indicative features (left) reflect informal, varied language. These poles explain why a linear model succeeds.}
 \end{figure}
 \end{block}
 
@@ -180,18 +173,19 @@ This project evaluates whether \textbf{simple, interpretable models} can reliabl
 
 \begin{block}{Findings}
 
-\textbf{Observations:}
 \begin{itemize}
-\item AI text is more stylistically consistent
-\item Specific phrases strongly indicate LLM output
-\item Human text is more varied
+  \item \textbf{$>$95\% accuracy} and ROC-AUC $>$ 0.98 on held-out test data
+  \item ChatGPT text is \textbf{stylistically uniform}; human text is diverse
+  \item A handful of formulaic phrases are near-\textbf{exclusive signals} of LLM output
+  \item Performance generalizes strongly across all six source domains
 \end{itemize}
 
-\textbf{Implications:}
+\vspace{0.5em}
+\textbf{Takeaways:}
 \begin{itemize}
-\item Lightweight models are highly effective
-\item Interpretability provides clear insight
-\item Detection may become harder as models improve
+  \item Lightweight models \textbf{match neural detectors} at a fraction of the cost
+  \item Interpretability lets us \textbf{explain every decision} --- a key advantage for real-world use
+  \item As LLMs improve, lexical patterns will weaken; future detectors will need stylometric and syntactic features
 \end{itemize}
 
 \end{block}
