@@ -46,6 +46,14 @@
 \setbeamerfont{author}{size=\large}
 \setbeamerfont{institute}{size=\normalsize}
 
+% ====================
+% Header spacing overrides
+% ====================
+\addtobeamertemplate{headline}{}{}
+\setbeamerfont{headline title}{size=\Huge, series=\bfseries}
+\setbeamerfont{headline author}{size=\Large}
+\setbeamerfont{headline institute}{size=\large}
+
 
 % ====================
 % Layout
@@ -71,8 +79,10 @@
   km998744@wcupa.edu, tg996676@wcupa.edu
 }
 
-\logoleft{\hspace{1.5cm}\includegraphics[height=5cm]{../poster/figures/wculogo.png}}
+\logoleft{\includegraphics[height=6cm]{../poster/figures/wculogo.png}}
 
+
+\setlength{\maxlogowidth}{24cm}
 % ====================
 % Document
 % ====================
