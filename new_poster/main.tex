@@ -95,9 +95,9 @@
 \begin{column}{\colwidth}
 
 \begin{block}{Introduction}
-As LLMs like ChatGPT grow more capable, distinguishing AI-generated text from human writing becomes increasingly difficult --- yet increasingly important for academic integrity, journalism, and trust online.
+As LLMs like ChatGPT become more capable, it’s getting harder to tell AI-generated text apart from human writing. This matters for academic integrity, journalism, and trust online.
 
-We ask: \textbf{can a simple, interpretable model do the job?} Rather than using a heavyweight neural detector, we train a logistic regression on TF-IDF features --- a model whose decisions can be fully audited and explained.
+We ask: \textbf{can a simple, interpretable model do the job?} Instead of a complex neural detector, we use logistic regression with TF-IDF features.
 
 \vspace{0.3em}
 \textbf{Research Questions:}
@@ -111,10 +111,11 @@ We ask: \textbf{can a simple, interpretable model do the job?} Rather than using
 \vspace{-0.3cm}
 
 \begin{block}{Accuracy by Source}
+\vspace{-1.3cm}
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{../train_outputs/figures/accuracy_by_source.pdf}
-\caption{\large All six HC3 domains exceed 93\% accuracy. Consistent performance across Reddit, StackExchange, medicine, and finance confirms the model learned \textbf{authorship style} --- not domain-specific vocabulary.}
+\caption{\large All five HC3 domains exceed 85\% accuracy, indicating the model learns \textbf{authorship style}, not domain-specific vocabulary.}
 \end{figure}
 \end{block}
 
@@ -127,19 +128,19 @@ We ask: \textbf{can a simple, interpretable model do the job?} Rather than using
 
 \begin{block}{Methodology}
 
-\textbf{Dataset --- HC3:}
+\textbf{Dataset (HC3):}
 \begin{itemize}
-  \item Human and ChatGPT answers to the same questions
-  \item Domains: Reddit, StackExchange, medicine, finance
-  \item Split \textbf{by question group} to prevent leakage
+  \item Human vs. ChatGPT answers to the same questions
+  \item Domains: Reddit (ELI5), open QA, Wikipedia (CS), medicine, finance
+  \item Split by question group to prevent leakage
 \end{itemize}
 
 \vspace{0.3em}
-\textbf{Model Pipeline:}
+\textbf{Model:}
 \begin{itemize}
   \item TF-IDF (50k features, unigrams + bigrams)
-  \item Logistic Regression with balanced class weights
-  \item Fully interpretable coefficients
+  \item Logistic Regression (balanced classes)
+  \item Train/val/test split: 75\% / 10\% / 15\% 
 \end{itemize}
 
 \end{block}
@@ -147,10 +148,11 @@ We ask: \textbf{can a simple, interpretable model do the job?} Rather than using
 \vspace{-0.3cm}
 
 \begin{block}{Model Confidence Distribution}
+\vspace{-1.6cm}
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{../train_outputs/figures/score_distribution.pdf}
-\caption{\large 97.4\% ChatGPT correctly classified. 1.6\% human misclassified Human texts. (blue) pile up near 0; ChatGPT texts (orange) pile up near 1. The sharp separation at the 0.5 boundary shows the model assigns \textbf{high-confidence predictions} to nearly every sample --- reflecting ChatGPT's stylistic uniformity versus human variability.}
+\caption{\large 97.4\% of ChatGPT texts are correctly classified; 1.6\% of human texts are misclassified. Human texts (blue) cluster near 0 and ChatGPT texts (orange) near 1, with a clear separation at 0.5. The model makes \textbf{high-confidence predictions}, reflecting uniform AI style and varied human writing.}
 \end{figure}
 \end{block}
 
@@ -165,7 +167,7 @@ We ask: \textbf{can a simple, interpretable model do the job?} Rather than using
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{../train_outputs/figures/feature_importance.pdf}
-\caption{\large ChatGPT-indicative features (right) are formulaic phrases: \textit{``in conclusion,''} \textit{``it is important to,''} \textit{``as an AI.''} Human-indicative features (left) reflect informal, varied language. These poles explain why a linear model succeeds.}
+\caption{\large ChatGPT-indicative features (right) include common, generic terms such as \textit{“important,”} \textit{“including,”} and \textit{“it is.”} Human-indicative features (left) include more informal and personal language like \textit{“my,”} \textit{“you,”} and \textit{“basically.”} This contrast helps explain why a linear model separates the two effectively.}
 \end{figure}
 \end{block}
 
@@ -174,18 +176,18 @@ We ask: \textbf{can a simple, interpretable model do the job?} Rather than using
 \begin{block}{Findings}
 
 \begin{itemize}
-  \item \textbf{$>$95\% accuracy} and ROC-AUC $>$ 0.98 on held-out test data
-  \item ChatGPT text is \textbf{stylistically uniform}; human text is diverse
-  \item A handful of formulaic phrases are near-\textbf{exclusive signals} of LLM output
-  \item Performance generalizes strongly across all six source domains
+  \item \textbf{$>$95\% accuracy} on held-out test data
+  \item ChatGPT text is \textbf{stylistically uniform}, while human text is more diverse
+  \item ChatGPT features skew toward \textbf{common, generic terms}, while human features reflect more personal and informal language
+  \item Performance generalizes across all five domains
 \end{itemize}
 
 \vspace{0.5em}
 \textbf{Takeaways:}
 \begin{itemize}
-  \item Lightweight models \textbf{match neural detectors} at a fraction of the cost
-  \item Interpretability lets us \textbf{explain every decision} --- a key advantage for real-world use
-  \item As LLMs improve, lexical patterns will weaken; future detectors will need stylometric and syntactic features
+  \item Lightweight models achieve strong performance at a fraction of the cost of neural detectors
+  \item Interpretability allows us to \textbf{explain model decisions}, which is valuable in real-world settings
+  \item As LLMs improve, lexical signals may weaken, requiring more advanced stylistic features
 \end{itemize}
 
 \end{block}
