@@ -119,6 +119,17 @@ We ask: \textbf{can a simple, interpretable model do the job?} Instead of a comp
 \end{figure}
 \end{block}
 
+\vspace{-0.5cm}
+\begin{block}{Data Overview (HC3)}
+\begin{itemize}
+  \item Human vs. ChatGPT answers to the same questions
+  \item Domains: Reddit (ELI5), open QA, Wikipedia (CS), medicine, finance
+  \item Split by question group to prevent leakage
+\end{itemize}
+\end{block}
+
+
+
 \end{column}
 
 \separatorcolumn
@@ -128,12 +139,6 @@ We ask: \textbf{can a simple, interpretable model do the job?} Instead of a comp
 
 \begin{block}{Methodology}
 
-\textbf{Dataset (HC3):}
-\begin{itemize}
-  \item Human vs. ChatGPT answers to the same questions
-  \item Domains: Reddit (ELI5), open QA, Wikipedia (CS), medicine, finance
-  \item Split by question group to prevent leakage
-\end{itemize}
 
 \vspace{0.3em}
 \textbf{Model:}
@@ -155,6 +160,10 @@ We ask: \textbf{can a simple, interpretable model do the job?} Instead of a comp
 \caption{\large 97.4\% of ChatGPT texts are correctly classified; 1.6\% of human texts are misclassified. Human texts (blue) cluster near 0 and ChatGPT texts (orange) near 1, with a clear separation at 0.5. The model makes \textbf{high-confidence predictions}, reflecting uniform AI style and varied human writing.}
 \end{figure}
 \end{block}
+
+\begin{alertblock}{Key Insight}
+Simple lexical features are enough to separate human and AI writing with high confidence.
+\end{alertblock}
 
 \end{column}
 
