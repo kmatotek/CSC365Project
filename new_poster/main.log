@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.8)  23 APR 2026 16:42
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.3.8)  23 APR 2026 18:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1024,17 +1024,17 @@ File: ../train_outputs/figures/cropped/score_distribution_cropped.pdf Graphic fi
 <use ../train_outputs/figures/cropped/score_distribution_cropped.pdf>
 File: ../train_outputs/figures/feature_importance.pdf Graphic file (type pdf)
 <use ../train_outputs/figures/feature_importance.pdf>
-LaTeX Font Info:    Calculating math sizes for size <29.86> on input line 219.
+LaTeX Font Info:    Calculating math sizes for size <29.86> on input line 223.
 
 LaTeX Font Warning: Font shape `OMX/cmex/m/n' in size <29.86> not available
-(Font)              size <24.88> substituted on input line 219.
+(Font)              size <24.88> substituted on input line 223.
 
 
 LaTeX Font Warning: Font shape `OMX/cmex/m/n' in size <14.93> not available
-(Font)              size <14.4> substituted on input line 219.
+(Font)              size <14.4> substituted on input line 223.
 
 
-Overfull \vbox (30.2884pt too high) detected at line 219
+Overfull \vbox (32.05464pt too high) detected at line 223
  []
 
 
@@ -1067,11 +1067,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 38476 strings out of 473832
- 943269 string characters out of 5729482
- 1491821 words of memory out of 5000000
- 60766 multiletter control sequences out of 15000+600000
- 599488 words of font info for 131 fonts, out of 8000000 for 9000
+ 38481 strings out of 473832
+ 943350 string characters out of 5729482
+ 1496777 words of memory out of 5000000
+ 60769 multiletter control sequences out of 15000+600000
+ 599496 words of font info for 132 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,18n,123p,767b,1004s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
