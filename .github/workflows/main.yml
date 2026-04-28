@@ -1,0 +1,48 @@
+name: Build LaTeX Poster
+
+on:
+  push:
+    branches:
+      - workflow-test
+    paths:
+      - "new_poster/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-latex-extra \
+            texlive-fonts-extra \
+            latexmk \
+            poppler-utils
+
+      - name: Compile LaTeX (XeLaTeX)
+        working-directory: new_poster
+        run: |
+          latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+          cp main.pdf ../poster.pdf
+
+      - name: Convert PDF to PNG
+        run: |
+          pdftoppm -png -singlefile poster.pdf poster
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: poster-${{ github.run_number }}
+          name: Poster Build ${{ github.run_number }}
+          files: |
+            poster.pdf
+            poster.png
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
