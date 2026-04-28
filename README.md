@@ -7,3 +7,7 @@ plot:
 python3 plots.py --export
 
 for poster get 'LaTeX Workshop' extension, go to main.tex, use recipe: xelatex (single run)
+
+# Poster
+
+![Poster](https://github.com/kmatotek/CSC365Project/releases/latest/download/poster.png)
