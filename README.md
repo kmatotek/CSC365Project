@@ -7,3 +7,7 @@ plot:
 python3 plots.py --export
 
 for poster get 'LaTeX Workshop' extension, go to main.tex, use recipe: xelatex (single run)
+
+# Poster
+
+![Poster](poster.png)
