@@ -15,18 +15,27 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Cache TeX Live
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.texlive
+            ~/.cache/texmf-var
+          key: texlive-${{ runner.os }}-${{ hashFiles('new_poster/**') }}
+          restore-keys: |
+            texlive-${{ runner.os }}-
+
       - name: Install LaTeX dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             texlive-xetex \
-            texlive-fonts-recommended \
             texlive-latex-extra \
-            texlive-fonts-extra \
+            texlive-fonts-recommended \
             latexmk \
             poppler-utils
 
-      - name: Compile LaTeX (XeLaTeX)
+      - name: Compile LaTeX
         working-directory: new_poster
         run: |
           latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
