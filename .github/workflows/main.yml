@@ -1,20 +1,19 @@
 permissions:
   contents: write
-  
+
 name: Build LaTeX Poster
 
 on:
   push:
-    branches:
-      - workflow-test
     paths:
-      - "new_poster/**"
+      - "poster/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -24,7 +23,7 @@ jobs:
           path: |
             ~/.texlive
             ~/.cache/texmf-var
-          key: texlive-${{ runner.os }}-${{ hashFiles('new_poster/**') }}
+          key: texlive-${{ runner.os }}-${{ hashFiles('poster/**') }}
           restore-keys: |
             texlive-${{ runner.os }}-
 
@@ -39,7 +38,7 @@ jobs:
             poppler-utils
 
       - name: Compile LaTeX
-        working-directory: new_poster
+        working-directory: poster
         run: |
           latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
           cp main.pdf ../poster.pdf
@@ -48,11 +47,37 @@ jobs:
         run: |
           pdftoppm -png -singlefile poster.pdf poster
 
-      - name: Create GitHub Release
+      - name: Delete existing latest release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              const release = await github.rest.repos.getReleaseByTag({
+                owner,
+                repo,
+                tag: "latest"
+              });
+
+              await github.rest.repos.deleteRelease({
+                owner,
+                repo,
+                release_id: release.data.id
+              });
+
+              console.log("Deleted existing latest release");
+            } catch (e) {
+              console.log("No existing release found, continuing...");
+            }
+
+      - name: Create Latest Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: poster-${{ github.run_number }}
-          name: Poster Build ${{ github.run_number }}
+          tag_name: latest
+          name: Latest Poster
+          make_latest: true
           files: |
             poster.pdf
             poster.png

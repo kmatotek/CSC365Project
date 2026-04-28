@@ -1,6 +1,3 @@
-% UQ Gemini Poster - Custom Blue Theme (#093f81 + #d1e2f3)
-% Based on: https://github.com/alfurka/gemini-uq
-
 \documentclass[final]{beamer}
 
 % ====================
@@ -14,49 +11,48 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
-\usepackage[table]{xcolor}  % for \rowcolors
+\usepackage[table]{xcolor}
 
 % ====================
-% Custom Blue Color Theme (replaces UChicago maroon)
+% Colors
 % ====================
-\definecolor{primaryblue}{HTML}{093f81}     % Deep blue - main accent
-\definecolor{lightblue}{HTML}{d1e2f3}       % Very light blue-gray - backgrounds
+\definecolor{primaryblue}{HTML}{093f81}
+\definecolor{lightblue}{HTML}{d1e2f3}
 
 \setbeamercolor{palette primary}{fg=black,bg=white}
-\setbeamercolor{palette secondary}{fg=black,bg=white}
-\setbeamercolor{palette tertiary}{bg=black,fg=white}
-\setbeamercolor{palette quaternary}{fg=black,bg=white}
 \setbeamercolor{structure}{fg=primaryblue}
 
-% Headline (dark blue bar)
 \setbeamercolor{headline}{fg=white,bg=primaryblue}
 \setbeamercolor{headline rule}{bg=primaryblue!70!black}
 
-% Blocks
 \setbeamercolor{block title}{fg=primaryblue,bg=white}
-\setbeamercolor{block separator}{bg=primaryblue}
 \setbeamercolor{block body}{fg=black,bg=white}
 
-% Alert blocks (light blue background)
 \setbeamercolor{block alerted title}{fg=primaryblue,bg=lightblue}
-\setbeamercolor{block alerted separator}{bg=primaryblue}
 \setbeamercolor{block alerted body}{fg=black,bg=lightblue!80}
 
-% Items & headings
-\setbeamercolor{item}{fg=primaryblue}
-\setbeamercolor{heading}{fg=primaryblue}
-
-% Bibliography
-\setbeamercolor{bibliography item}{fg=primaryblue}
-\setbeamercolor{bibliography entry author}{fg=black}
-\setbeamercolor{bibliography entry title}{fg=black}
-
 % ====================
-% Load Gemini Theme (after color overrides)
+% Theme
 % ====================
 \usetheme{gemini}
 
+% ====================
+% FONT SCALING
+% ====================
+\setbeamerfont{block title}{size=\Large,series=\bfseries}
+\setbeamerfont{block body}{size=\large}
+\setbeamerfont{headline}{size=\Large}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{institute}{size=\normalsize}
 
+% ====================
+% Header spacing overrides
+% ====================
+\addtobeamertemplate{headline}{}{}
+\setbeamerfont{headline title}{size=\Huge, series=\bfseries}
+\setbeamerfont{headline author}{size=\Large}
+\setbeamerfont{headline institute}{size=\large}
 
 % ====================
 % Layout
@@ -68,229 +64,161 @@
 \newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
 
 % ====================
-% Your Content
+% Title
 % ====================
-\title{The Impact of Prompt Engineering on Code Generation Accuracy and Hallucination Patterns in Language Models}
+\title{Detecting AI-Generated Text Using Lightweight Linguistic Models}
 
-\author{Kadin Matotek \texorpdfstring{\\[0.3em] \normalsize Advisors: Dr. Linh B. Ngo and Dr. Md Amiruzzaman}{, Advisor: Dr. Linh B. Ngo and Dr. Md Amiruzzaman}}
+\author{Tyler Geiger and Kadin Matotek \\[0.3em] \normalsize Instructor: Dr. Agah}
 
-\institute[shortinst]{West Chester University, Department of Computer Science}
+\institute{West Chester University, Department of Computer Science}
 
 \footercontent{
-  Research conducted at WCU-AIR Lab \hfill
-  CSM Dean's Office Student Research Poster Session 2025 \hfill
-  \href{mailto:km998744@wcupa.edu}{km998744@wcupa.edu}
+  CSC 365: Data Analytics - Spring 2026 \hfill
+  West Chester University \hfill
+  km998744@wcupa.edu, tg996676@wcupa.edu
 }
 
-% Optional logos (adjust paths as needed)
-\logoleft{\includegraphics[height=7cm]{figures/wculogo.png}}
-\logoright{%
-  \begin{minipage}{14cm}
-    \centering
-    \includegraphics[height=7cm]{figures/icon.png}\\[2em]
-    {\Large\color{white}{WCU-AIR Lab}}
-  \end{minipage}%
-}
+\logoleft{\includegraphics[height=6cm]{../poster/figures/wculogo.png}}
 
-% Custom logo overlay (uncomment if you prefer manual placement)
-% \addtobeamertemplate{headline}{}
-% {
-%     \begin{tikzpicture}[remember picture,overlay]
-%       \node[anchor=north west,inner sep=3cm] at ([xshift=0cm,yshift=1cm]current page.north west)
-%         {\includegraphics[height=5cm]{figures/icon.png}};
-%       \node[anchor=north east,inner sep=3cm] at ([xshift=0cm,yshift=2.5cm]current page.north east)
-%         {\includegraphics[height=8cm]{figures/icon.png}};
-%     \end{tikzpicture}
-% }
+\setlength{\maxlogowidth}{24cm}
 
+% ====================
+% Document
+% ====================
 \begin{document}
 
 \begin{frame}[t]
 \begin{columns}[t]
 \separatorcolumn
 
-% ==================== Column 1 ====================
+% ==================== COLUMN 1 ====================
 \begin{column}{\colwidth}
 
 \begin{block}{Introduction}
-Large Language Models (LLMs) have demonstrated remarkable capabilities in code generation, yet their reliability remains a critical concern. This study investigates how different prompt engineering strategies affect model accuracy and hallucination patterns across coding tasks.
+As LLMs like ChatGPT become more capable, it’s getting harder to tell AI-generated text apart from human writing. This matters for academic integrity, journalism, and trust online.
 
+We ask: \textbf{can a simple, interpretable model do the job?} Instead of a complex neural detector, we use logistic regression with TF-IDF features.
+
+\vspace{0.3em}
 \textbf{Research Questions:}
 \begin{itemize}
-  \item How do concise versus verbose instructions impact code generation accuracy?
-  \item What types of errors and hallucinations emerge across different model sizes?
-  \item How do reasoning strategies (Chain-of-Thought, Direct, Program-Aided) affect performance?
+  \item Can lightweight models reliably detect AI-generated text?
+  \item Which linguistic patterns most distinguish ChatGPT from humans?
+  \item Does detection hold across different topic domains?
 \end{itemize}
 \end{block}
 
-\vspace{-1cm}
+\vspace{-0.3cm}
 
-\begin{block}{Methodology}
-We evaluated 5 Qwen2.5-Coder model variants (0.5B to 14B parameters) on 323 programming problems using a systematic prompt engineering framework.
-
-\textbf{Dataset:}
-\vspace{-.5cm}
-\begin{itemize}
-  \item \textbf{Source:} Kattis competitive programming platform
-  \item Used for rigorous competitions including ICPC
-  \item \textbf{Difficulty Range:} 0-2 (on 0-10 Kattis scale)
-  \item Focus on fundamental algorithmic challenges
-\end{itemize}
-
-\textbf{Experimental Design:}
-\vspace{-.5cm}
-\begin{itemize}
-  \item \textbf{Base Instructions:} Concise vs. Verbose (2 options)
-  \item \textbf{Reasoning Strategies:} Chain-of-Thought, Direct, Program-Aided (3 options)
-  \item \textbf{Problem Decomposition:} None vs. Basic (2 options)
-  \item \textbf{Output Formats:} Code only, Explanation + Code, Code + Explanation (3 options)
-  \item \textbf{Prompt Variations:} $2 \times 3 \times 2 \times 3 = 36$ unique configurations
-  \item \textbf{Total Solutions Generated:} $323 \text{ problems} \times 36 \text{ prompts} \times 5 \text{ models} = 58,140$ code generations
-\end{itemize}
-
-\textbf{Evaluation Metrics:}
-\vspace{-.5cm}
-\begin{itemize}
-  \item \textbf{Accuracy:} Solutions passing all test cases
-  \item \textbf{Error Taxonomy:} 8 hallucination categories, 18 error types
-  \item \textbf{Reproducibility:} Dual independent runs
-\end{itemize}
-
+\begin{block}{Model Accuracy}
+\vspace{-0.3cm}
 \begin{figure}
 \centering
-\hspace{-2.0cm}
-\fcolorbox{lightblue}{white}{\includegraphics[width=1.05\linewidth]{figures/instructions.png}}
-\caption{Comparison of base instruction styles: verbose prompts (top) provide detailed explanations while concise prompts (bottom) use minimal, direct language.}
+\includegraphics[width=\linewidth]{../train_outputs/figures/cropped/accuracy_by_source_cropped.pdf}
+\caption{\large All five HC3 domains exceed 85\% accuracy, indicating the model learns \textbf{authorship style}, not domain-specific vocabulary.}
 \end{figure}
 \end{block}
 
-\end{column}
-\separatorcolumn
-
-% =================  Column 2 
-\begin{column}{\colwidth}
-
-\begin{alertblock}{Key Finding: Conciseness Advantage}
-Across all 18 prompt configuration comparisons, \textbf{concise instructions outperformed verbose ones in 94.4\%} of cases with an average improvement of +1.35\%.
-
-This effect was most pronounced in smaller models:
-\begin{itemize}
-  \item \textbf{0.5B model:} +21.0\% relative improvement
-  \item \textbf{1.5B, 3B models:} +8.2\% and +8.3\% improvement
-  \item \textbf{7B, 14B models:} +5.7\% and +0.4\% improvement
-\end{itemize}
-
-This suggests verbose instructions introduce noise that smaller models struggle to filter, while larger models can better extract relevant information despite verbosity.
+\vspace{0.3cm}
+\begin{alertblock}{Key Insight}
+Simple lexical features are enough to separate human and AI \\writing with high confidence.
 \end{alertblock}
 
-\begin{block}{Results: Prompt Strategy Performance}
-
-\textbf{Top 3 Configurations} 
-
-\begin{table}
-\centering
-\small
-\begin{tabular}{l l l l r}
-\toprule
-\textbf{Base} & \textbf{Reasoning} & \textbf{Decomp} & \textbf{Output}       & \textbf{Acc.} \\
-\midrule
-\rowcolor{lightblue!20}
-Concise & Direct    & None  & Code only     & \textbf{33.10\%} \\
-Concise & Direct    & None  & Exp + Code    & 32.79\% \\
-Concise & CoT       & None  & Exp + Code    & 32.04\% \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Bottom 3 Configurations}
-
-\begin{table}
-\centering
-\small
-\begin{tabular}{l l l l r}
-\toprule
-\textbf{Base} & \textbf{Reasoning} & \textbf{Decomp} & \textbf{Output}       & \textbf{Acc.} \\
-\midrule
-Verbose & CoT       & Basic & Code + Exp    & 28.17\% \\
-Verbose & PAL       & Basic & Code + Exp    & 27.80\% \\
-\rowcolor{lightblue!20}
-Verbose & PAL       & Basic & Exp + Code    & \textbf{26.78\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\vspace{0.5em}
-\textit{Max gap: \textbf{+6.32\%}}
-
-\end{block}
-
-\begin{block}{Reasoning Strategy Comparison}
-\begin{figure}
-\centering
-\includegraphics[width=1\linewidth]{figures/reasoning_strategy.pdf}
-\vspace{-2cm}
-\caption{Concise prompts consistently outperform verbose across all reasoning strategies (Direct, Chain-of-Thought, and Program-Aided).}
-\end{figure}
-
-\end{block}
 
 \end{column}
+
 \separatorcolumn
 
-% ==================== Column 3 ====================
+% ==================== COLUMN 2 ====================
 \begin{column}{\colwidth}
 
-\begin{block}{Error and Hallucination Analysis}
-We manually defined and annotated 28 distinct error types. Crucially, we observe:
+\begin{block}{Methodology}
 
-\vspace{0.5em}
-\textbf{Highly reproducible hallucination profiles:} Independent runs (v1 vs v2) produce nearly identical error distributions (overlapping solid/dashed lines).
+\textbf{Dataset (HC3):}
+\begin{itemize}
+  \item Human and ChatGPT responses to identical questions
+  \item Each sample is a (question, answer) pair labeled as human or AI
+  \item Binary classification: human (0) vs ChatGPT (1)
+\end{itemize}
 
-\textbf{Systematic shift with model scale:} Larger models dramatically reduce the dominant error mode while maintaining the same overall failure pattern.
+\vspace{0.05em}
+\textbf{Domains:}
+\vspace{-0.2em}
+\begin{itemize}
+  \item Reddit (ELI5) — informal explanations
+  \item Open QA — general knowledge questions
+  \item Wikipedia (CS) — technical explanations
+  \item Medicine — clinical Q\&A
+  \item Finance — investment discussion
+\end{itemize}
+
+\vspace{0.05em}
+\textbf{Model:}
+\vspace{-0.2em}
+\begin{itemize}
+  \item TF-IDF (50k features, unigrams + bigrams)
+  \item Logistic Regression
+  \item Train/test split: 80\% / 20\%
+\end{itemize}
+
+\end{block}
+
+\vspace{-0.3cm}
+
+\begin{block}{Model Confidence}
+\vspace{-0.3cm}
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{figures/hallucination_stability.pdf}
-\caption{\textbf{Hallucination profiles are remarkably stable across independent runs} (solid vs dashed lines nearly overlap) but \textbf{shift predictably with model size}.}
+\includegraphics[width=\linewidth]{../train_outputs/figures/cropped/score_distribution_cropped.pdf}
+\caption{\large 97.4\% of ChatGPT texts are correctly classified; 1.6\% of human texts are misclassified. Clear separation at 0.5 shows \textbf{high-confidence predictions}.}
 \end{figure}
-
-\textbf{Most Common Error Types:}
-\begin{itemize}
-  \item \textbf{Logic Deviation} (41.6\%): Incorrect algorithmic approach
-  \item \textbf{ValueError} (12.9\%): Invalid input handling
-  \item \textbf{TypeError} (2.9\%): Type mismatches
-  \item \textbf{IndexError} (3.1\%): Array boundary violations
-  \item \textbf{NameError} (2.8\%): Undefined variables
-\end{itemize}
-
 \end{block}
 
-\begin{block}{Conclusions}
-
-\textbf{Key Takeaways:}
-\begin{itemize}
-  \item Concise prompts consistently outperform verbose alternatives
-  \item Smaller models are more sensitive to prompt engineering
-  \item Logic deviations are the dominant failure mode
-  \item Reasoning strategy and output format significantly affect accuracy
-\end{itemize}
-
-\textbf{Future Directions:}
-\begin{itemize}
-  \item Extend evaluation to more complex problems (difficulty 3-10)
-  \item Test multilingual code generation across Python, Java, C++
-  \item Investigate few-shot prompting with example solutions
-  \item Develop automated prompt optimization frameworks
-\end{itemize}
-
-\end{block}
-% \begin{block}{References}
-%\nocite{*}
-%\small\bibliographystyle{plain}\bibliography{poster}
-% \end{block}
 
 \end{column}
+
 \separatorcolumn
 
+% ==================== COLUMN 3 ====================
+\begin{column}{\colwidth}
+
+\begin{block}{Feature Importance}
+\vspace{-1.3cm}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{../train_outputs/figures/feature_importance.pdf}
+\caption{\large ChatGPT-indicative features (right) include common, generic terms such as \textit{“important,”} \textit{“including,”} and \textit{“it is.”} Human-indicative features (left) include more informal and personal language like \textit{“my,”} \textit{“you,”} and \textit{“basically.”} This contrast helps explain why a linear model separates the two effectively.}
+\end{figure}
+\end{block}
+
+\vspace{-0.3cm}
+
+\begin{block}{Findings}
+
+\begin{itemize}
+  \item \textbf{$>$95\% accuracy} on held-out test data
+  \item ChatGPT text is \textbf{stylistically uniform}, while human text is more diverse
+  \item ChatGPT features skew toward \textbf{common, generic terms}, while human features reflect more personal and informal language
+\end{itemize}
+
+
+\end{block}
+
+%\vspace{0.1cm}
+
+\begin{block}{References}
+\begin{itemize}
+  \item HC3 Dataset (Hugging Face): \url{https://huggingface.co/datasets/Hello-SimpleAI/HC3}
+  \item HC3 Repo: \url{https://github.com/Hello-SimpleAI/chatgpt-comparison-detection}
+  \item Guo et al. (2023), \textit{How Close is ChatGPT to Human Experts? Comparison Corpus, Evaluation, and Detection}  
+  arXiv:2301.07597 \\
+  \url{https://doi.org/10.48550/arXiv.2301.07597}
+\end{itemize}
+\end{block}
+
+\end{column}
+
+\separatorcolumn
 \end{columns}
 \end{frame}
 
